@@ -12,6 +12,7 @@ export {
   getProgramsByCollege,
   findProgramById,
   searchAdnuPrograms,
+  buildProgramAcronym,
 } from "./helpers";
 
 export type { AdnuProgramWithCollege } from "./helpers";

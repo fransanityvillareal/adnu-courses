@@ -20,13 +20,6 @@ For data-only usage:
 
 ```bash
 npm install adnu-courses
-
-## Installation
-
-For data-only usage:
-
-```bash
-npm install adnu-courses
 ```
 
 For the React autocomplete component:
@@ -51,6 +44,21 @@ import { adnuColleges, getAllAdnuPrograms } from "adnu-courses";
 console.log(adnuColleges);
 console.log(getAllAdnuPrograms());
 ```
+
+### Short names
+
+Each program includes a `shortName` field for compact display.
+
+```ts
+import { findProgramById } from "adnu-courses";
+
+const program = findProgramById("bs-information-technology");
+
+console.log(program?.name); // "BS Information Technology"
+console.log(program?.shortName); // "BS IT"
+```
+
+Use `shortName` for tables, badges, compact layouts, and autocomplete secondary labels.
 
 ### React autocomplete usage
 
@@ -88,6 +96,7 @@ import {
   getProgramsByCollege,
   findProgramById,
   searchAdnuPrograms,
+  buildProgramAcronym,
 } from "adnu-courses";
 ```
 
@@ -98,7 +107,8 @@ import {
 | `getAllAdnuPrograms()` | Returns all programs with college information |
 | `getProgramsByCollege(collegeId)` | Returns programs under a specific college |
 | `findProgramById(programId)` | Finds a program by ID |
-| `searchAdnuPrograms(query)` | Searches programs by name, college, or status |
+| `searchAdnuPrograms(query)` | Searches programs by id, name, short name, college, or status |
+| `buildProgramAcronym(programName)` | Builds a program acronym from its name |
 
 ### React component
 
@@ -152,6 +162,7 @@ Example result:
 {
   id: "bs-information-technology",
   name: "BS Information Technology",
+  shortName: "BS IT",
   status: "active",
   collegeId: "college-of-computer-studies",
   collegeName: "College of Computer Studies"
@@ -166,6 +177,19 @@ import { searchAdnuPrograms } from "adnu-courses";
 const results = searchAdnuPrograms("computer");
 
 console.log(results);
+```
+
+The search helper also matches program short names, including inputs like
+"BS IT", "BS IS", and "BSED ENG".
+
+### Build a program acronym
+
+```ts
+import { buildProgramAcronym } from "adnu-courses";
+
+const acronym = buildProgramAcronym("BS Information Technology");
+
+console.log(acronym); // "BSIT"
 ```
 
 ## React Autocomplete Examples
@@ -236,6 +260,13 @@ By default, the autocomplete includes active and on-hold programs.
 
 ```tsx
 <AdnuCourseAutocomplete includeOnHold={false} />
+```
+
+### Show or hide short names
+
+```tsx
+<AdnuCourseAutocomplete showShortName />
+<AdnuCourseAutocomplete showShortName={false} />
 ```
 
 ### Controlled usage
@@ -315,6 +346,7 @@ type AdnuCourseAutocompleteProps = {
   value?: Key | null;
   defaultValue?: Key | null;
   includeOnHold?: boolean;
+  showShortName?: boolean;
   onChange?: (key: Key | null) => void;
   onProgramChange?: (program: AdnuProgramWithCollege | null) => void;
 };
@@ -329,6 +361,7 @@ type AdnuCourseAutocompleteProps = {
 | `value` | `Key \| null` | `undefined` | Controlled selected value |
 | `defaultValue` | `Key \| null` | `null` | Default selected value for uncontrolled usage |
 | `includeOnHold` | `boolean` | `true` | Whether to include on-hold programs |
+| `showShortName` | `boolean` | `true` | Whether to show the program short name below the full name |
 | `onChange` | `(key: Key \| null) => void` | `undefined` | Called when the selected program ID changes |
 | `onProgramChange` | `(program: AdnuProgramWithCollege \| null) => void` | `undefined` | Called with the full selected program object |
 
@@ -340,6 +373,7 @@ type AdnuCourseStatus = "active" | "on-hold";
 type AdnuProgram = {
   id: string;
   name: string;
+  shortName: string;
   status: AdnuCourseStatus;
 };
 
@@ -374,6 +408,7 @@ import type {
 {
   "id": "bs-ba-business-economics",
   "name": "BS BA Business Economics",
+  "shortName": "BSBA BE",
   "status": "on-hold",
   "collegeId": "college-of-business-and-accountancy",
   "collegeName": "College of Business and Accountancy"

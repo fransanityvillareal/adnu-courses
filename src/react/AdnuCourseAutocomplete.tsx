@@ -25,6 +25,7 @@ export type AdnuCourseAutocompleteProps = {
   value?: Key | null;
   defaultValue?: Key | null;
   includeOnHold?: boolean;
+  showShortName?: boolean;
   onChange?: (key: Key | null) => void;
   onProgramChange?: (program: AdnuProgramWithCollege | null) => void;
 };
@@ -37,6 +38,7 @@ export function AdnuCourseAutocomplete({
   value,
   defaultValue = null,
   includeOnHold = true,
+  showShortName = true,
   onChange,
   onProgramChange,
 }: AdnuCourseAutocompleteProps) {
@@ -102,10 +104,16 @@ export function AdnuCourseAutocomplete({
                   <ListBox.Item
                     key={program.id}
                     id={program.id}
-                    textValue={`${program.name} ${college.name} ${program.status}`}
+                    textValue={`${program.name} ${program.shortName} ${program.id} ${college.name} ${program.status}`}
                   >
                     <div className="flex w-full items-center justify-between gap-3">
-                      <Label>{program.name}</Label>
+                      <div className="flex min-w-0 flex-col">
+                        <span className="truncate">{program.name}</span>
+
+                        {showShortName ? (
+                          <span className="text-xs text-default-500">{program.shortName}</span>
+                        ) : null}
+                      </div>
 
                       {program.status === "on-hold" ? (
                         <span className="rounded-full bg-warning-100 px-2 py-0.5 text-xs text-warning-700">
