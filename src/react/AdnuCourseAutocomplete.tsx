@@ -9,7 +9,6 @@ import {
   Label,
   ListBox,
   SearchField,
-  Separator,
   useFilter,
 } from "@heroui/react";
 import { useMemo, useState } from "react";
@@ -95,34 +94,30 @@ export function AdnuCourseAutocomplete({
           </SearchField>
 
           <ListBox renderEmptyState={() => <EmptyState>No programs found</EmptyState>}>
-            {colleges.map((college, index) => (
-              <div key={college.id}>
-                {index > 0 ? <Separator /> : null}
+            {colleges.map((college) => (
+              <ListBox.Section key={college.id}>
+                <Header>{college.name}</Header>
 
-                <ListBox.Section>
-                  <Header>{college.name}</Header>
+                {college.programs.map((program) => (
+                  <ListBox.Item
+                    key={program.id}
+                    id={program.id}
+                    textValue={`${program.name} ${college.name} ${program.status}`}
+                  >
+                    <div className="flex w-full items-center justify-between gap-3">
+                      <Label>{program.name}</Label>
 
-                  {college.programs.map((program) => (
-                    <ListBox.Item
-                      key={program.id}
-                      id={program.id}
-                      textValue={`${program.name} ${college.name} ${program.status}`}
-                    >
-                      <div className="flex w-full items-center justify-between gap-3">
-                        <span>{program.name}</span>
+                      {program.status === "on-hold" ? (
+                        <span className="rounded-full bg-warning-100 px-2 py-0.5 text-xs text-warning-700">
+                          On Hold
+                        </span>
+                      ) : null}
+                    </div>
 
-                        {program.status === "on-hold" ? (
-                          <span className="rounded-full bg-warning-100 px-2 py-0.5 text-xs text-warning-700">
-                            On Hold
-                          </span>
-                        ) : null}
-                      </div>
-
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  ))}
-                </ListBox.Section>
-              </div>
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                ))}
+              </ListBox.Section>
             ))}
           </ListBox>
         </Autocomplete.Filter>
