@@ -1,6 +1,6 @@
 {
   "name": "adnu-courses",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Ateneo de Naga University colleges and courses data with optional HeroUI autocomplete component.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -19,7 +19,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsup",
@@ -49,9 +51,5 @@
     "react-dom": "latest",
     "tsup": "latest",
     "typescript": "latest"
-  },
-  "dependencies": {
-    "adnu-courses": "file:adnu-courses-1.0.0.tgz",
-    "@heroui/react": "^2.0.0 || ^3.0.0"
   }
 }
