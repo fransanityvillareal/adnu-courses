@@ -1,0 +1,57 @@
+{
+  "name": "adnu-courses",
+  "version": "1.0.0",
+  "description": "Ateneo de Naga University colleges and courses data with optional HeroUI autocomplete component.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "adnu",
+    "ateneo-de-naga",
+    "courses",
+    "colleges",
+    "heroui",
+    "autocomplete"
+  ],
+  "author": "John Francis C. Villareal",
+  "license": "MIT",
+  "peerDependencies": {
+    "@heroui/react": "^2.0.0 || ^3.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@heroui/react": "^3.0.3",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tsup": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "adnu-courses": "file:adnu-courses-1.0.0.tgz",
+    "@heroui/react": "^2.0.0 || ^3.0.0"
+  }
+}
