@@ -1,6 +1,6 @@
 {
   "name": "adnu-courses",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Ateneo de Naga University colleges and courses data with optional HeroUI autocomplete component.",
   "type": "module",
   "main": "./dist/index.cjs",
